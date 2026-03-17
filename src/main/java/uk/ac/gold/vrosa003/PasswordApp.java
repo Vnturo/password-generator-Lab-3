@@ -15,6 +15,8 @@ public class PasswordApp {
         Options options = new Options();
         options.addOption("l", "length", true, "Length of the password (default 8)");
         options.addOption("h", "help", false, "Print this help message");
+        // Enhancement option added to the CLI
+        options.addOption("s", "special", false, "Include special characters (!@#$%^&*)");
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -23,13 +25,13 @@ public class PasswordApp {
         try {
             CommandLine cmd = parser.parse(options, args);
 
-            // 1. Handle Help
+            // Handle Help
             if (cmd.hasOption("h")) {
                 formatter.printHelp("PasswordApp", options);
                 System.exit(0);
             }
 
-            // 2. Check for -l flag
+            // Check for -l flag
             if (cmd.hasOption("l")) {
                 try {
                     passwordLength = Integer.parseInt(cmd.getOptionValue("l"));
@@ -38,8 +40,7 @@ public class PasswordApp {
                     System.exit(1);
                 }
             }
-            // 3. NEW: Check for a plain number (arguments without a flag)
-            // This fixes the issue where "java ... 3" was ignored
+            // Check for a plain number (arguments without a flag)
             else if (cmd.getArgs().length > 0) {
                 try {
                     passwordLength = Integer.parseInt(cmd.getArgs()[0]);
@@ -49,13 +50,14 @@ public class PasswordApp {
                 }
             }
 
-            // 4. Generate Password
-            Generator generator = new Generator();
-            String password = generator.generate(passwordLength);
+            // Check if the user wants special characters
+            boolean useSpecial = cmd.hasOption("s");
 
-            System.out.println("--------------------------------");
+            // Generate Password (now passing the useSpecial flag)
+            Generator generator = new Generator();
+            String password = generator.generate(passwordLength, useSpecial);
+
             System.out.println("Generated Password: " + password);
-            System.out.println("--------------------------------");
 
         } catch (ParseException e) {
             System.err.println("Error parsing arguments: " + e.getMessage());

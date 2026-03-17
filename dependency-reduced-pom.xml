@@ -20,6 +20,9 @@
                 <transformer>
                   <mainClass>uk.ac.gold.vrosa003.PasswordApp</mainClass>
                 </transformer>
+                <transformer>
+                  <resource>MANIFEST.MF</resource>
+                </transformer>
               </transformers>
             </configuration>
           </execution>

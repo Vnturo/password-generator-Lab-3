@@ -3,8 +3,8 @@ package uk.ac.gold.vrosa003.utils;
 import java.security.SecureRandom;
 
 public class Generator {
-    public String generate(int length) {
-        String characters = CharacterSet.getCharacters();
+    public String generate(int length, boolean useSpecial) {
+        String characters = CharacterSet.getCharacters(useSpecial);
         SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder();
 
