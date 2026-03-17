@@ -4,7 +4,7 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
+   git clone (https://github.com/Vnturo/password-generator-Lab-3)
    cd password-generator
    ```
 ## Generate a default password (8 characters)
